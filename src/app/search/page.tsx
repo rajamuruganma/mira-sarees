@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Search, X } from 'lucide-react'
-import { PRODUCTS } from '@/lib/constants'
+import { GENERATED_PRODUCTS } from '@/lib/product-data'
 import { ProductCard } from '@/components/ui/ProductCard'
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams()
   const initialQuery = searchParams.get('q') || ''
   const [query, setQuery] = useState(initialQuery)
@@ -14,7 +14,7 @@ export default function SearchPage() {
   const results = useMemo(() => {
     if (!query.trim()) return []
     const q = query.toLowerCase()
-    return PRODUCTS.filter(
+    return GENERATED_PRODUCTS.filter(
       (p) =>
         p.name.toLowerCase().includes(q) ||
         p.fabric.toLowerCase().includes(q) ||
@@ -91,5 +91,17 @@ export default function SearchPage() {
         )}
       </div>
     </div>
+  )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={
+      <div className="pt-28 pb-20 text-center">
+        <p className="font-dm text-sm text-warm-gray">Loading search...</p>
+      </div>
+    }>
+      <SearchContent />
+    </Suspense>
   )
 }
