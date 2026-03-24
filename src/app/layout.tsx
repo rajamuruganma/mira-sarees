@@ -26,6 +26,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://mira-sarees.vercel.app'),
   title: {
     default: 'MIRA. | Where Threads Become Stories — Luxury Indian Sarees',
     template: '%s | MIRA.',
