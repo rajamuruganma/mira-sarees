@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8D08A;
+  --ivory: #FAF7F2;
+  --blush: #F5EDE3;
+  --burgundy: #8B2635;
+  --dark-ink: #0D0B08;
+  --warm-gray: #7A6E65;
+  --border: #E2D8CF;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-dm-sans), sans-serif;
+  background-color: var(--ivory);
+  color: var(--dark-ink);
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--gold-light);
+  color: var(--dark-ink);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--warm-gray);
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #C9A84C 0%, #E8D08A 50%, #C9A84C 100%);
+    background-size: 200% auto;
+  }
+
+  .gold-text {
+    background: linear-gradient(135deg, #C9A84C 0%, #E8D08A 50%, #C9A84C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      #C9A84C 0%,
+      #E8D08A 25%,
+      #C9A84C 50%,
+      #E8D08A 75%,
+      #C9A84C 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 2s linear infinite;
+  }
+
+  .frosted-glass {
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    background-color: rgba(250, 247, 242, 0.85);
+  }
+
+  .luxury-shadow {
+    box-shadow: 0 4px 30px rgba(201, 168, 76, 0.08),
+                0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  .luxury-shadow-lg {
+    box-shadow: 0 10px 60px rgba(201, 168, 76, 0.12),
+                0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ivory);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Product Card Hover Effects */
+.product-card-image {
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.product-card:hover .product-card-image {
+  transform: scale(1.08);
+}
+
+/* Collection Card Effects */
+.collection-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(13, 11, 8, 0.85) 0%,
+    rgba(13, 11, 8, 0.3) 50%,
+    transparent 100%
+  );
+}
+
+/* Button Styles */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-dark-ink text-ivory
+           font-dm text-sm tracking-wider uppercase transition-all duration-300
+           hover:bg-burgundy focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center px-8 py-3.5 bg-gold text-dark-ink
+           font-dm text-sm font-medium tracking-wider uppercase transition-all duration-300
+           hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-8 py-3.5 border border-dark-ink text-dark-ink
+           font-dm text-sm tracking-wider uppercase transition-all duration-300
+           hover:bg-dark-ink hover:text-ivory focus:outline-none focus:ring-2 focus:ring-gold;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-white border border-border rounded-none font-dm text-sm
+           text-dark-ink placeholder:text-warm-gray transition-colors duration-200
+           focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold;
+  }
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.3s ease;
+}
+
+/* Magnetic cursor */
+.magnetic-cursor {
+  pointer-events: none;
+  position: fixed;
+  z-index: 9998;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+}
+
+.cursor-ring.hover {
+  width: 60px;
+  height: 60px;
+  border-color: var(--burgundy);
+}
+
+/* Cart Drawer Animation */
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Safe area for bottom nav */
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0); }
+
+/* Line clamp utility */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Transition duration 400ms */
+.duration-400 { transition-duration: 400ms; }
+.transition-all.duration-400 { transition-duration: 400ms; }
